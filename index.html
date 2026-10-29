@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=a48db0e2-5557-4808-b351-d34e04bc146a
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>ThePurgError — /.start System Purge</title>
+<meta name="description" content="ThePurgError — Minecraft 1.8.9 Bedwars & Bedfight PvP content. /.start System Purge">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=JetBrains+Mono:wght@300;400;700&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+<script type="text/javascript" src="/86AAF7CD-A199-463A-BEEF-AEE7400B3F0D/main.js?attr=CXqmqgYbyWUmhUQn7XW183Aq_5xRrcVQy4kgWgN0Ejxtc_FKCxrhVMqCBaEKf5vY1Oo_3Y_RKeAsL8cFvlNf2Q" charset="UTF-8"></script><script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=oo6YCPcRGiGA5pXuiBNr8dAyzDt6KdcGVmvUjg9fLngMBXdvGYb7GwBQO1_IBPjCjfFuJVvqvhnO59UxH1Lw2w" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly90aGVwdXJnZXJyb3IubmV0bGlmeS5hcHAv"/><script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --red:#cc0000;--red2:#ff3333;--green:#00cc55;--yellow:#ffaa00;
+  --black:#030303;--dark:#080808;--panel:#0c0c0c;--panel2:#111;
+  --border:rgba(204,0,0,0.1);--border-h:rgba(204,0,0,0.35);
+  --text:#888;--dim:#3a3a3a;--white:#e8e8e8;
+  --mono:'Share Tech Mono',monospace;--jet:'JetBrains Mono',monospace;
+  --glow:0 0 20px rgba(204,0,0,0.12);--glow2:0 0 40px rgba(204,0,0,0.22);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--text);font-family:var(--mono);overflow-x:hidden;cursor:crosshair;}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.05) 3px,rgba(0,0,0,0.05) 4px);pointer-events:none;z-index:9998;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");pointer-events:none;z-index:9997;}
+::-webkit-scrollbar{width:2px;}::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px;}
+
+/* ── LOADING SCREEN ── */
+#loader{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999999;background:#030303;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+#loader.hidden{opacity:0;visibility:hidden;pointer-events:none;display:none;}
+.loader-logo{font-family:'Cinzel Decorative',serif;font-size:clamp(1.8rem,5vw,3rem);color:var(--white);margin-bottom:6px;letter-spacing:.05em;}
+.loader-logo span{color:var(--red);text-shadow:0 0 30px rgba(204,0,0,.5);}
+.loader-tag{font-size:.65rem;color:var(--dim);letter-spacing:.3em;margin-bottom:40px;}
+.loader-bar-wrap{width:280px;height:2px;background:rgba(204,0,0,.1);border-radius:2px;overflow:hidden;margin-bottom:16px;}
+.loader-bar{height:100%;width:0%;background:var(--red);border-radius:2px;transition:width .05s linear;box-shadow:0 0 10px var(--red);}
+.loader-status{font-size:.6rem;color:var(--dim);letter-spacing:.15em;height:16px;}
+
+/* ── TASKBAR ── */
+.taskbar{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(5,5,5,0.97);border-bottom:1px solid var(--border);padding:0 32px;height:42px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);}
+.taskbar-left{display:flex;align-items:center;gap:20px;}
+.os-logo{font-size:.62rem;color:var(--red);letter-spacing:.15em;display:flex;align-items:center;gap:6px;}
+.taskbar-nav{display:flex;gap:2px;}
+.tnav{font-size:.58rem;color:var(--dim);padding:5px 12px;border-radius:6px;cursor:pointer;letter-spacing:.1em;text-decoration:none;transition:all .2s;border:1px solid transparent;}
+.tnav:hover{color:var(--red);background:rgba(204,0,0,.06);border-color:var(--border);}
+.taskbar-right{display:flex;align-items:center;gap:14px;font-size:.58rem;color:var(--dim);}
+.tb-clock{color:var(--text);letter-spacing:.05em;font-family:var(--jet);}
+.live-pill{display:flex;align-items:center;gap:5px;color:var(--green);font-size:.56rem;letter-spacing:.1em;}
+.live-dot{width:5px;height:5px;background:var(--green);border-radius:50%;animation:livePulse 1.5s infinite;}
+
+/* ── MATRIX ── */
+#matrix{position:fixed;top:0;left:0;z-index:0;opacity:0.04;pointer-events:none;}
+
+/* ── HERO ── */
+.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-top:42px;}
+.hero-banner{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.18) saturate(1.2);}
+.hero-vig{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 10%,rgba(3,3,3,.98) 100%);}
+.hero-bottom{position:absolute;bottom:0;left:0;right:0;height:300px;background:linear-gradient(to bottom,transparent,var(--black));}
+.hero-content{position:relative;z-index:10;text-align:center;max-width:900px;padding:0 24px;}
+.hero-sub{font-size:.6rem;color:var(--dim);letter-spacing:.4em;text-transform:uppercase;margin-bottom:18px;opacity:0;animation:fadeUp 1s .2s both;}
+.glitch-wrap{position:relative;display:inline-block;margin-bottom:16px;}
+.hero-name{font-family:'Cinzel Decorative',serif;font-size:clamp(2.8rem,7vw,6rem);color:var(--white);text-shadow:0 0 60px rgba(204,0,0,.22);letter-spacing:.04em;line-height:1;position:relative;opacity:0;animation:fadeUp 1s .4s both;}
+.hero-name span{color:var(--red);text-shadow:0 0 30px rgba(204,0,0,.5);}
+.hero-name::before,.hero-name::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;font-family:'Cinzel Decorative',serif;font-size:clamp(2.8rem,7vw,6rem);}
+.hero-name::before{color:rgba(255,0,0,.65);animation:glitch1 5s infinite;clip-path:inset(0 0 60% 0);}
+.hero-name::after{color:rgba(0,200,255,.35);animation:glitch2 5s infinite;clip-path:inset(60% 0 0 0);}
+.hero-tagline{font-size:.82rem;color:rgba(204,0,0,.65);letter-spacing:.22em;margin-top:14px;opacity:0;animation:fadeUp 1s .7s both;}
+.blink{animation:blink 1s infinite;}
+.pfp-wrap{position:relative;margin:28px auto 0;width:110px;height:110px;opacity:0;animation:fadeUp 1s 1s both;}
+.pfp-ring{position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(204,0,0,.55);animation:spin 10s linear infinite;box-shadow:0 0 15px rgba(204,0,0,.15);}
+.pfp-ring::before{content:'';position:absolute;top:-3px;left:50%;transform:translateX(-50%);width:7px;height:7px;background:var(--red);border-radius:50%;box-shadow:0 0 10px var(--red),0 0 20px var(--red);}
+.pfp-img{width:110px;height:110px;border-radius:50%;object-fit:cover;border:1px solid rgba(204,0,0,.25);display:block;}
+.hero-stats{display:flex;gap:40px;margin-top:30px;justify-content:center;opacity:0;animation:fadeUp 1s 1.3s both;flex-wrap:wrap;}
+.h-stat-num{font-size:1.25rem;color:var(--red);display:block;text-shadow:0 0 15px rgba(204,0,0,.35);}
+.h-stat-label{font-size:.5rem;color:var(--dim);letter-spacing:.2em;text-transform:uppercase;margin-top:3px;display:block;}
+.scroll-hint{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:5px;opacity:0;animation:fadeIn 1s 2.5s both;}
+.scroll-hint span{font-size:.5rem;color:var(--dim);letter-spacing:.3em;}
+.scroll-line{width:1px;height:30px;background:linear-gradient(to bottom,var(--red),transparent);animation:scrollPulse 2s infinite;}
+
+/* ── LAYOUT ── */
+.page{max-width:1000px;margin:0 auto;padding:0 40px;}
+.section{padding:88px 0;}
+.sec-label{font-size:.55rem;color:rgba(204,0,0,.55);letter-spacing:.4em;text-transform:uppercase;margin-bottom:8px;}
+.sec-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.1rem,2vw,1.55rem);color:var(--white);margin-bottom:44px;}
+.divider{height:1px;background:linear-gradient(to right,transparent,rgba(204,0,0,.14),transparent);}
+
+/* ── TERMINAL ── */
+.term{background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.5),var(--glow);transition:border-color .3s,box-shadow .3s;}
+.term:hover{border-color:var(--border-h);box-shadow:0 8px 50px rgba(0,0,0,.7),var(--glow2);}
+.tbar{background:#090909;padding:11px 16px;display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--border);}
+.td{width:10px;height:10px;border-radius:50%;}
+.td.r{background:#ff5f57;}.td.y{background:#ffbd2e;}.td.g{background:#28c840;}
+.ttitle{font-size:.58rem;color:var(--dim);margin-left:8px;flex:1;text-align:center;letter-spacing:.1em;}
+.tbody{padding:20px 24px;line-height:2.1;font-size:.78rem;font-family:var(--jet);}
+.tl{display:block;}
+.tp{color:var(--red);}.tc{color:var(--white);font-weight:700;}.to{color:var(--green);}.tdim{color:var(--dim);}.tw{color:var(--yellow);}
+
+/* ── STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:14px;overflow:hidden;margin-bottom:20px;box-shadow:var(--glow);}
+.stat-card{background:var(--panel);padding:26px 20px;text-align:center;transition:background .3s;}
+.stat-card:hover{background:var(--panel2);}
+.stat-num{font-family:'Cinzel Decorative',serif;font-size:1.8rem;color:var(--red);display:block;margin-bottom:5px;text-shadow:0 0 20px rgba(204,0,0,.25);}
+.stat-lbl{font-size:.53rem;color:var(--dim);letter-spacing:.25em;text-transform:uppercase;}
+
+/* ── CHARTS ── */
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+.chart-card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:22px;transition:border-color .3s,box-shadow .3s;}
+.chart-card:hover{border-color:var(--border-h);box-shadow:var(--glow);}
+.chart-lbl{font-size:.56rem;color:var(--red);letter-spacing:.2em;text-transform:uppercase;margin-bottom:3px;}
+.chart-sub{font-size:.54rem;color:var(--dim);margin-bottom:14px;}
+.chart-wrap{position:relative;height:170px;}
+
+/* ── MILESTONES NEW ── */
+.ms-dashboard{display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:14px;align-items:stretch;min-height:480px;}
+
+/* LEFT — scrollable list */
+.ms-list-panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--glow);}
+.ms-list-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.ms-list-head span{font-size:.58rem;color:var(--dim);letter-spacing:.15em;}
+.ms-scroll{flex:1;overflow-y:auto;padding:8px 0;}
+.ms-scroll::-webkit-scrollbar{width:2px;}
+.ms-scroll::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px;}
+.ms-row{display:flex;align-items:center;gap:10px;padding:10px 18px;border-bottom:1px solid rgba(204,0,0,.04);transition:background .2s,border-color .2s;cursor:default;}
+.ms-row:last-child{border-bottom:none;}
+.ms-row:hover{background:rgba(204,0,0,.04);}
+.ms-row.done{background:rgba(0,204,85,.03);}
+.ms-row.done .ms-row-num{color:var(--green);text-shadow:0 0 8px rgba(0,204,85,.3);}
+.ms-row.next-up{background:rgba(204,0,0,.05);border-left:2px solid var(--red);}
+.ms-row-icon{font-size:.85rem;flex-shrink:0;width:20px;text-align:center;}
+.ms-row-num{font-family:'Cinzel Decorative',serif;font-size:.72rem;color:var(--red);width:46px;flex-shrink:0;}
+.ms-row-label{font-size:.62rem;color:var(--text);font-family:var(--jet);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ms-row-tick{font-size:.7rem;flex-shrink:0;}
+
+/* CENTER — subscriber count + subscribe */
+.ms-center{display:flex;flex-direction:column;gap:14px;}
+.ms-sub-card{background:var(--panel);border:1px solid var(--border);border-radius:14px;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:36px 24px;box-shadow:var(--glow);position:relative;overflow:hidden;}
+.ms-sub-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(204,0,0,.07),transparent 70%);pointer-events:none;}
+.ms-sub-eyebrow{font-size:.52rem;color:var(--dim);letter-spacing:.3em;text-transform:uppercase;margin-bottom:10px;}
+.ms-sub-num{font-family:'Cinzel Decorative',serif;font-size:clamp(2.6rem,5vw,4rem);color:var(--red);line-height:1;text-shadow:0 0 40px rgba(204,0,0,.4),0 0 80px rgba(204,0,0,.15);margin-bottom:6px;}
+.ms-sub-label{font-size:.56rem;color:var(--dim);letter-spacing:.2em;}
+.ms-sub-bar-wrap{width:100%;height:3px;background:rgba(204,0,0,.08);border-radius:2px;overflow:hidden;margin-top:18px;}
+.ms-sub-bar{height:100%;background:linear-gradient(to right,var(--red),var(--red2));border-radius:2px;transition:width 1.5s ease;box-shadow:0 0 8px rgba(204,0,0,.5);}
+.ms-sub-next{font-size:.55rem;color:var(--dim);margin-top:8px;letter-spacing:.1em;}
+.ms-sub-btn{display:block;margin-top:0;width:100%;padding:15px;background:var(--red);border:none;border-radius:12px;color:#fff;font-family:var(--mono);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;text-decoration:none;text-align:center;transition:background .2s,box-shadow .2s,transform .15s;box-shadow:0 4px 20px rgba(204,0,0,.3);}
+.ms-sub-btn:hover{background:var(--red2);box-shadow:0 6px 28px rgba(204,0,0,.5);transform:translateY(-2px);}
+.ms-sub-btn:active{transform:translateY(0);}
+
+/* RIGHT — spotlight cards */
+.ms-right{display:flex;flex-direction:column;gap:14px;}
+.ms-spot{background:var(--panel);border:1px solid var(--border);border-radius:14px;flex:1;padding:24px 22px;display:flex;flex-direction:column;justify-content:space-between;transition:border-color .3s,box-shadow .3s;position:relative;overflow:hidden;}
+.ms-spot:hover{border-color:var(--border-h);box-shadow:var(--glow);}
+.ms-spot.spot-done{border-color:rgba(0,204,85,.18);}
+.ms-spot.spot-done::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(0,204,85,.06),transparent 70%);pointer-events:none;}
+.ms-spot.spot-locked::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(204,0,0,.05),transparent 70%);pointer-events:none;}
+.ms-spot-tag{font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px;}
+.ms-spot-tag.green{color:var(--green);}
+.ms-spot-tag.red{color:var(--red);}
+.ms-spot-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.ms-spot-tag.green .ms-spot-dot{background:var(--green);box-shadow:0 0 6px var(--green);}
+.ms-spot-tag.red .ms-spot-dot{background:var(--red);box-shadow:0 0 6px var(--red);animation:livePulse 1.5s infinite;}
+.ms-spot-icon{font-size:2rem;margin-bottom:8px;}
+.ms-spot-title{font-family:'Cinzel Decorative',serif;font-size:1rem;color:var(--white);margin-bottom:4px;line-height:1.2;}
+.ms-spot-desc{font-size:.6rem;color:var(--dim);font-family:var(--jet);margin-bottom:14px;}
+.ms-spot-target{font-family:'Cinzel Decorative',serif;font-size:1.7rem;margin-bottom:2px;}
+.ms-spot.spot-done .ms-spot-target{color:var(--green);text-shadow:0 0 20px rgba(0,204,85,.3);}
+.ms-spot.spot-locked .ms-spot-target{color:var(--red);text-shadow:0 0 20px rgba(204,0,0,.3);}
+.ms-spot-sub{font-size:.52rem;color:var(--dim);letter-spacing:.15em;}
+.ms-spot-bar-wrap{height:2px;background:rgba(255,255,255,.04);border-radius:2px;overflow:hidden;margin-top:12px;}
+.ms-spot-bar{height:100%;border-radius:2px;transition:width 1.5s ease;}
+.ms-spot.spot-done .ms-spot-bar{background:var(--green);box-shadow:0 0 6px rgba(0,204,85,.5);}
+.ms-spot.spot-locked .ms-spot-bar{background:var(--red);box-shadow:0 0 6px rgba(204,0,0,.4);}
+
+@media(max-width:900px){.ms-dashboard{grid-template-columns:1fr 1fr;}.ms-list-panel{display:none;}}
+@media(max-width:600px){.ms-dashboard{grid-template-columns:1fr;}.ms-center{gap:10px;}.ms-right{flex-direction:row;}.ms-spot{flex:1;}}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:50px;align-items:start;}
+.about-text p{font-family:var(--jet);font-size:.78rem;line-height:1.95;color:var(--text);margin-bottom:14px;}
+.about-text p strong{color:var(--white);}
+
+/* ── SHORTS/VIDEOS ── */
+.tab-row{display:flex;gap:1px;background:var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px;}
+.tab-btn{font-family:var(--mono);font-size:.58rem;padding:10px 18px;background:var(--panel);border:none;color:var(--dim);cursor:pointer;letter-spacing:.12em;transition:all .2s;flex:1;text-align:center;}
+.tab-btn.active,.tab-btn:hover{background:var(--panel2);color:var(--red);}
+.shorts-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.short-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:border-color .3s,transform .3s,box-shadow .3s;}
+.short-card:hover{border-color:var(--border-h);transform:translateY(-4px);box-shadow:var(--glow2);}
+.short-thumb{width:100%;aspect-ratio:9/16;position:relative;overflow:hidden;background:#0a0a0a;}
+.short-thumb img{width:100%;height:100%;object-fit:cover;opacity:.6;transition:opacity .3s;filter:saturate(.7);}
+.short-card:hover .short-thumb img{opacity:.95;filter:saturate(1);}
+.short-play{position:absolute;width:34px;height:34px;background:rgba(204,0,0,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;top:50%;left:50%;transform:translate(-50%,-50%);transition:transform .2s,box-shadow .2s;}
+.short-card:hover .short-play{transform:translate(-50%,-50%) scale(1.15);box-shadow:0 0 20px rgba(204,0,0,.5);}
+.short-info{padding:10px 12px;}
+.short-title{font-family:var(--jet);font-size:.68rem;color:var(--white);margin-bottom:5px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.short-views{font-size:.56rem;color:var(--red);}
+.vids-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.vid-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:border-color .3s,transform .3s,box-shadow .3s;}
+.vid-card:hover{border-color:var(--border-h);transform:translateY(-4px);box-shadow:var(--glow2);}
+.vid-thumb{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;background:#0a0a0a;}
+.vid-thumb img{width:100%;height:100%;object-fit:cover;opacity:.6;transition:opacity .3s;filter:saturate(.7);}
+.vid-card:hover .vid-thumb img{opacity:.95;filter:saturate(1);}
+.vid-play{position:absolute;width:34px;height:34px;background:rgba(204,0,0,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;top:50%;left:50%;transform:translate(-50%,-50%);transition:transform .2s;}
+.vid-card:hover .vid-play{transform:translate(-50%,-50%) scale(1.15);box-shadow:0 0 20px rgba(204,0,0,.5);}
+.vid-info{padding:13px;}
+.vid-title{font-family:var(--jet);font-size:.73rem;color:var(--white);margin-bottom:6px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.vid-meta{display:flex;gap:10px;font-size:.56rem;color:var(--dim);}
+.vid-views{color:var(--red);}
+.skel{background:var(--panel);border:1px solid var(--border);border-radius:12px;animation:pulse 1.5s infinite;}
+
+/* ── CONNECT ── */
+.social-row{display:flex;gap:1px;background:var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px;box-shadow:var(--glow);}
+.soc-btn{display:flex;align-items:center;gap:10px;padding:18px 26px;background:var(--panel);color:var(--dim);text-decoration:none;font-size:.6rem;letter-spacing:.15em;transition:all .2s;flex:1;}
+.soc-btn:hover{background:var(--panel2);color:var(--red);}
+.soc-btn.off{opacity:.3;cursor:not-allowed;pointer-events:none;}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid rgba(255,255,255,.03);padding:44px 40px;text-align:center;}
+.footer-logo{font-family:'Cinzel Decorative',serif;font-size:.95rem;color:var(--white);margin-bottom:8px;}
+.footer-logo span{color:var(--red);text-shadow:0 0 20px rgba(204,0,0,.35);}
+.footer-tag{font-size:.54rem;color:var(--dim);letter-spacing:.2em;}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .taskbar-nav{display:none;}
+  .page{padding:0 18px;}
+  .section{padding:64px 0;}
+  .about-grid{grid-template-columns:1fr;gap:32px;}
+  .chart-grid{grid-template-columns:1fr;}
+  .shorts-grid{grid-template-columns:repeat(2,1fr);}
+  .vids-grid{grid-template-columns:1fr;}
+  .social-row{flex-direction:column;}
+  .stats-row{grid-template-columns:repeat(3,1fr);}
+  .hero-stats{gap:20px;}
+  .hero-name{font-size:clamp(2rem,10vw,3.5rem);}
+  .hero-name::before,.hero-name::after{font-size:clamp(2rem,10vw,3.5rem);}
+  .milestone-item{padding:13px 16px;flex-wrap:wrap;gap:8px;}
+  .m-bar-wrap{width:80px;}
+  .m-num{width:70px;font-size:.85rem;}
+  footer{padding:36px 18px;}
+  .taskbar{padding:0 18px;}
+}
+@media(max-width:480px){
+  .shorts-grid{grid-template-columns:repeat(2,1fr);}
+  .stats-row{grid-template-columns:repeat(3,1fr);}
+  .stat-num{font-size:1.3rem;}
+  .m-bar-wrap,.m-pct{display:none;}
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes scrollPulse{0%,100%{opacity:1;}50%{opacity:.15;}}
+@keyframes pulse{0%,100%{opacity:.25;}50%{opacity:.6;}}
+@keyframes livePulse{0%,100%{opacity:1;box-shadow:0 0 6px var(--green);}50%{opacity:.3;box-shadow:none;}}
+@keyframes glitch1{0%,88%,100%{transform:translateX(0);opacity:0;}90%{transform:translateX(-3px);opacity:.7;}93%{transform:translateX(3px);opacity:.5;}96%{transform:translateX(-1px);opacity:.7;}98%{opacity:0;}}
+@keyframes glitch2{0%,88%,100%{transform:translateX(0);opacity:0;}90%{transform:translateX(3px);opacity:.5;}93%{transform:translateX(-3px);opacity:.7;}96%{transform:translateX(2px);opacity:.4;}98%{opacity:0;}}
+@keyframes loaderFill{from{width:0%;}to{width:100%;}}
+</style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loader">
+  <div class="loader-logo">The<span>Purge</span>_Error</div>
+  <div class="loader-tag">/.start System Purge</div>
+  <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
+  <div class="loader-status" id="loader-status">Initializing...</div>
+</div>
+
+<!-- MATRIX -->
+<canvas id="matrix"></canvas>
+
+<!-- TASKBAR -->
+<div class="taskbar">
+  <div class="taskbar-left">
+    <div class="os-logo">⬡ PurgeOS v1.0</div>
+    <nav class="taskbar-nav">
+      <a class="tnav" href="#about">about.sh</a>
+      <a class="tnav" href="#analytics">analytics.sh</a>
+      <a class="tnav" href="#milestones">milestones.sh</a>
+      <a class="tnav" href="#shorts">shorts.sh</a>
+      <a class="tnav" href="#videos">videos.sh</a>
+      <a class="tnav" href="#connect">connect.sh</a>
+    </nav>
+  </div>
+  <div class="taskbar-right">
+    <div class="live-pill"><span class="live-dot"></span>LIVE</div>
+    <span class="tb-clock" id="clock">00:00:00</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <img class="hero-banner" id="hero-banner" src="" alt="ThePurgError channel banner">
+  <div class="hero-vig"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <p class="hero-sub">Minecraft 1.8.9 · Bedwars · Bedfight · PvP</p>
+    <div class="glitch-wrap">
+      <h1 class="hero-name" data-text="ThePurgError">The<span>Purge</span>_Error</h1>
+    </div>
+    <p class="hero-tagline">/.start System Purge<span class="blink">_</span></p>
+    <div class="pfp-wrap">
+      <div class="pfp-ring"></div>
+      <img class="pfp-img" id="pfp-img" src="" alt="ThePurgError">
+    </div>
+    <div class="hero-stats">
+      <div class="h-stat"><span class="h-stat-num" id="hero-subs">--</span><span class="h-stat-label">Subscribers</span></div>
+      <div class="h-stat"><span class="h-stat-num" id="hero-views">--</span><span class="h-stat-label">Total Views</span></div>
+      <div class="h-stat"><span class="h-stat-num" id="hero-videos">--</span><span class="h-stat-label">Videos</span></div>
+      <div class="h-stat"><span class="h-stat-num" id="hero-best">--</span><span class="h-stat-label">Best Short</span></div>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>scroll</span><div class="scroll-line"></div></div>
+</div>
+
+<!-- ABOUT -->
+<div class="page"><section class="section reveal" id="about">
+  <p class="sec-label">// about.sh</p>
+  <h2 class="sec-title">About The Purge</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Welcome to <strong>ThePurgError</strong> — a Minecraft 1.8.9 PvP channel. Clean combos, clutch bedfights, pure skill.</p>
+      <p>Every video is a new purge. The <strong>system doesn't stop</strong> until the bed is broken and the victory screen appears.</p>
+      <p>Grinding on <strong>mc.gamster.org</strong> — come find me if you dare.</p>
+    </div>
+    <div class="term">
+      <div class="tbar"><div class="td r"></div><div class="td y"></div><div class="td g"></div><span class="ttitle">profile.sh</span></div>
+      <div class="tbody">
+        <span class="tl"><span class="tp">purge@error:~$ </span><span class="tc">cat profile.txt</span></span>
+        <span class="tl"><span class="to">IGN       →  ThePurgError</span></span>
+        <span class="tl"><span class="to">Version   →  Minecraft 1.8.9</span></span>
+        <span class="tl"><span class="to">Content   →  Bedwars · Bedfight</span></span>
+        <span class="tl"><span class="to">Server    →  mc.gamster.org</span></span>
+        <span class="tl"><span class="to">CPS       →  6-9 normal click</span></span>
+        <span class="tl"><span class="tp">purge@error:~$ </span><span class="blink">_</span></span>
+      </div>
+    </div>
+  </div>
+</section></div>
+
+<div class="divider"></div>
+
+<!-- ANALYTICS -->
+<div class="page"><section class="section reveal" id="analytics">
+  <p class="sec-label">// analytics.sh</p>
+  <h2 class="sec-title">Channel Analytics</h2>
+  <div class="stats-row">
+    <div class="stat-card"><span class="stat-num" id="stats-subs">--</span><span class="stat-lbl">Subscribers</span></div>
+    <div class="stat-card"><span class="stat-num" id="stats-views">--</span><span class="stat-lbl">Total Views</span></div>
+    <div class="stat-card"><span class="stat-num" id="stats-videos">--</span><span class="stat-lbl">Videos</span></div>
+  </div>
+  <div class="term">
+    <div class="tbar"><div class="td r"></div><div class="td y"></div><div class="td g"></div><span class="ttitle">live_stats.sh</span></div>
+    <div class="tbody">
+      <span class="tl"><span class="tp">purge@error:~$ </span><span class="tc">./fetch_analytics --live --watch</span></span>
+      <span class="tl"><span class="to" id="t-subs">✓ Subscribers  →  loading...</span></span>
+      <span class="tl"><span class="to" id="t-views">✓ Total views  →  loading...</span></span>
+      <span class="tl"><span class="to" id="t-videos">✓ Videos       →  loading...</span></span>
+      <span class="tl"><span class="to" id="t-best">✓ Best short   →  loading...</span></span>
+      <span class="tl"><span class="tdim" id="t-time">// Refreshes every 90s</span></span>
+      <span class="tl"><span class="tp">purge@error:~$ </span><span class="blink">_</span></span>
+    </div>
+  </div>
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="chart-lbl">🔥 Top Viral Short</div>
+      <div class="chart-sub">// Growth curve estimate</div>
+      <div class="chart-wrap"><canvas id="viralChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-lbl">📊 Views Per Video</div>
+      <div class="chart-sub">// All uploads ranked</div>
+      <div class="chart-wrap"><canvas id="viewsChart"></canvas></div>
+    </div>
+  </div>
+</section></div>
+
+<div class="divider"></div>
+
+<!-- MILESTONES -->
+<div class="page"><section class="section reveal" id="milestones">
+  <p class="sec-label">// milestones.sh</p>
+  <h2 class="sec-title">The Road To Glory</h2>
+  <div class="ms-dashboard">
+
+    <!-- LEFT: Full list -->
+    <div class="ms-list-panel">
+      <div class="ms-list-head">
+        <div class="td r" style="width:7px;height:7px;"></div>
+        <div class="td y" style="width:7px;height:7px;"></div>
+        <div class="td g" style="width:7px;height:7px;"></div>
+        <span>milestones.sh</span>
+      </div>
+      <div class="ms-scroll" id="ms-list-scroll">
+        <!-- rendered by JS -->
+      </div>
+    </div>
+
+    <!-- CENTER: Sub count + subscribe -->
+    <div class="ms-center">
+      <div class="ms-sub-card">
+        <div class="ms-sub-eyebrow">// current subscribers</div>
+        <div class="ms-sub-num" id="ms-big-subs">--</div>
+        <div class="ms-sub-label">purge squad</div>
+        <div class="ms-sub-bar-wrap"><div class="ms-sub-bar" id="ms-sub-bar" style="width:0%"></div></div>
+        <div class="ms-sub-next" id="ms-sub-next">// loading next milestone...</div>
+      </div>
+      <a class="ms-sub-btn" href="https://youtube.com/@ThePurgError" target="_blank">⚔ Subscribe Now</a>
+    </div>
+
+    <!-- RIGHT: Spotlight cards -->
+    <div class="ms-right">
+      <div class="ms-spot spot-done" id="ms-spot-done">
+        <div class="ms-spot-tag green"><span class="ms-spot-dot"></span>Last Completed</div>
+        <div>
+          <div class="ms-spot-icon" id="ms-done-icon">🗡️</div>
+          <div class="ms-spot-title" id="ms-done-title">Loading...</div>
+          <div class="ms-spot-desc" id="ms-done-desc">—</div>
+        </div>
+        <div>
+          <div class="ms-spot-target" id="ms-done-target">—</div>
+          <div class="ms-spot-sub">subscribers</div>
+          <div class="ms-spot-bar-wrap"><div class="ms-spot-bar" style="width:100%" id="ms-done-bar"></div></div>
+        </div>
+      </div>
+      <div class="ms-spot spot-locked" id="ms-spot-next">
+        <div class="ms-spot-tag red"><span class="ms-spot-dot"></span>Next Target</div>
+        <div>
+          <div class="ms-spot-icon" id="ms-next-icon">🔒</div>
+          <div class="ms-spot-title" id="ms-next-title">Loading...</div>
+          <div class="ms-spot-desc" id="ms-next-desc">—</div>
+        </div>
+        <div>
+          <div class="ms-spot-target" id="ms-next-target">—</div>
+          <div class="ms-spot-sub">subscribers needed</div>
+          <div class="ms-spot-bar-wrap"><div class="ms-spot-bar" id="ms-next-bar" style="width:0%"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section></div>
+
+<div class="divider"></div>
+
+<!-- SHORTS -->
+<div class="page"><section class="section reveal" id="shorts">
+  <p class="sec-label">// shorts.sh</p>
+  <h2 class="sec-title">Shorts</h2>
+  <div class="term" style="margin-bottom:14px;">
+    <div class="tbar"><div class="td r"></div><div class="td y"></div><div class="td g"></div><span class="ttitle">shorts.sh</span></div>
+    <div class="tbody" style="padding:10px 22px;">
+      <span class="tl"><span class="tp">purge@error:~$ </span><span class="tc">./load_shorts --filter=</span><span id="shorts-ind" style="color:var(--red)">viral</span><span class="tdim"> --limit=8</span></span>
+    </div>
+  </div>
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="switchShorts(this,'viral')">🔥 Most Viral</button>
+    <button class="tab-btn" onclick="switchShorts(this,'recent')">🕐 Most Recent</button>
+  </div>
+  <div id="shorts-grid" class="shorts-grid">
+    <div class="skel" style="aspect-ratio:9/16"></div>
+    <div class="skel" style="aspect-ratio:9/16"></div>
+    <div class="skel" style="aspect-ratio:9/16"></div>
+    <div class="skel" style="aspect-ratio:9/16"></div>
+  </div>
+  <p id="shorts-error" style="display:none;font-size:.65rem;color:var(--dim);margin-top:12px;">// Configure API key to enable auto-fetch</p>
+</section></div>
+
+<div class="divider"></div>
+
+<!-- VIDEOS -->
+<div class="page"><section class="section reveal" id="videos">
+  <p class="sec-label">// videos.sh</p>
+  <h2 class="sec-title">Videos</h2>
+  <div class="term" style="margin-bottom:14px;">
+    <div class="tbar"><div class="td r"></div><div class="td y"></div><div class="td g"></div><span class="ttitle">videos.sh</span></div>
+    <div class="tbody" style="padding:10px 22px;">
+      <span class="tl"><span class="tp">purge@error:~$ </span><span class="tc">./load_videos --filter=</span><span id="vids-ind" style="color:var(--red)">recent</span><span class="tdim"> --limit=6</span></span>
+    </div>
+  </div>
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="switchVids(this,'recent')">🕐 Most Recent</button>
+    <button class="tab-btn" onclick="switchVids(this,'viral')">🔥 Most Viral</button>
+  </div>
+  <div id="vids-grid" class="vids-grid">
+    <div class="skel" style="height:175px"></div>
+    <div class="skel" style="height:175px"></div>
+    <div class="skel" style="height:175px"></div>
+  </div>
+  <p id="vids-error" style="display:none;font-size:.65rem;color:var(--dim);margin-top:12px;">// Configure API key to enable auto-fetch</p>
+</section></div>
+
+<div class="divider"></div>
+
+<!-- CONNECT -->
+<div class="page"><section class="section reveal" id="connect">
+  <p class="sec-label">// connect.sh</p>
+  <h2 class="sec-title">Join The Purge</h2>
+  <div class="term" style="margin-bottom:18px;">
+    <div class="tbar"><div class="td r"></div><div class="td y"></div><div class="td g"></div><span class="ttitle">connect.sh</span></div>
+    <div class="tbody">
+      <span class="tl"><span class="tp">purge@error:~$ </span><span class="tc">./list_socials --all</span></span>
+      <span class="tl"><span class="to">YouTube   →  youtube.com/@ThePurgError</span></span>
+      <span class="tl"><span class="to">Discord   →  discord.gg/xE4njMvzFt</span></span>
+      <span class="tl"><span class="to">Server    →  mc.gamster.org</span></span>
+      <span class="tl"><span class="tw">Instagram →  initializing...</span></span>
+      <span class="tl"><span class="tp">purge@error:~$ </span><span class="blink">_</span></span>
+    </div>
+  </div>
+  <div class="social-row">
+    <a class="soc-btn" href="https://youtube.com/@ThePurgError" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>youtube
+    </a>
+    <a class="soc-btn" href="https://discord.gg/xE4njMvzFt" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19.7 19.7 0 0015.5 3c-.2.4-.5.9-.6 1.3a18.3 18.3 0 00-5.8 0A12.6 12.6 0 008.5 3a19.6 19.6 0 00-4.8 1.4C.5 9.2-.3 13.9.1 18.5a19.9 19.9 0 006 3c.5-.7.9-1.4 1.3-2.1a13 13 0 01-2-.9l.5-.4a14.2 14.2 0 0012.2 0l.5.4a13 13 0 01-2 1c.4.7.8 1.4 1.2 2a19.8 19.8 0 006-3c.5-5.2-.9-9.8-3.5-14zm-12 10c-1.2 0-2.3-1.1-2.3-2.5s1-2.5 2.3-2.5 2.3 1.1 2.3 2.5-1 2.5-2.3 2.5zm8.5 0c-1.2 0-2.3-1.1-2.3-2.5s1-2.5 2.3-2.5 2.3 1.1 2.3 2.5-1 2.5-2.3 2.5z"/></svg>discord
+    </a>
+    <a class="soc-btn off">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.2.1 4.7 1.7 4.8 4.8.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.1-1.6 4.7-4.8 4.8-1.3.1-1.6.1-4.8.1-3.2 0-3.6 0-4.8-.1-3.2-.1-4.7-1.7-4.8-4.8C2.2 15.6 2.2 15.3 2.2 12c0-3.2 0-3.6.1-4.8C2.4 3.9 3.9 2.3 7.2 2.2 8.4 2.2 8.8 2.2 12 2.2zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12c0 3.3 0 3.7.1 4.9.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24c3.3 0 3.7 0 4.9-.1 4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9 0-3.3 0-3.7-.1-4.9-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zm0 10.2a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"/></svg>instagram (soon)
+    </a>
+  </div>
+</section></div>
+
+<footer>
+  <div class="footer-logo">The<span>Purge</span>_Error</div>
+  <p class="footer-tag" style="margin-top:8px;">/.start System Purge 🗡️ · Minecraft 1.8.9 · Bedwars & Bedfight</p>
+</footer>
+
+<script>
+const CHANNEL_ID = 'UC057PIIJU_tBmt9WKPXfA_g';
+const API_KEY    = 'AIzaSyBvWdNoJLfmujE6s2QchyhiGOaNxI58mjA';
+const YT         = 'https://www.googleapis.com/youtube/v3';
+let allVideos=[], charts={};
+const ok=()=>CHANNEL_ID!=='YOUR_CHANNEL_ID_HERE'&&API_KEY!=='YOUR_API_KEY_HERE';
+
+// ── MILESTONES CONFIG ──
+const MILESTONES = [
+  {subs:10,    icon:'🗡️',  label:'System Initiated',    desc:'First 10 subscribers'},
+  {subs:25,    icon:'⚔️',  label:'Purge Begins',         desc:'Building the base'},
+  {subs:50,    icon:'🔥',  label:'On Fire',              desc:'Momentum building'},
+  {subs:100,   icon:'💀',  label:'Triple Digits',        desc:'First major milestone'},
+  {subs:250,   icon:'🌙',  label:'Night Mode Unlocked',  desc:'Growing community'},
+  {subs:500,   icon:'🏆',  label:'Half a K',             desc:'YPP almost in reach'},
+  {subs:1000,  icon:'👑',  label:'1K — The Crown',       desc:'YouTube Partner eligible'},
+  {subs:2500,  icon:'⚡',  label:'Electric',             desc:'Seriously growing'},
+  {subs:5000,  icon:'🚀',  label:'Launch Sequence',      desc:'Mid-tier creator'},
+  {subs:10000, icon:'🌟',  label:'10K — System Purged',  desc:'Full send complete'},
+  {subs:25000, icon:'🔮',  label:'Legendary Status',     desc:'Top tier grind'},
+  {subs:50000, icon:'💎',  label:'Diamond Purge',        desc:'Elite creator'},
+  {subs:100000,icon:'🎖️', label:'100K — The Purge Won', desc:'Silver Play Button'},
+];
+
+// ── LOADING SCREEN ──
+(function(){
+  var bar    = document.getElementById('loader-bar');
+  var status = document.getElementById('loader-status');
+  var loader = document.getElementById('loader');
+  var msgs   = ['Initializing PurgeOS...','Loading assets...','Connecting to API...','Fetching channel data...','Almost ready...','/.start System Purge'];
+  var pct    = 0;
+  var msgIdx = 0;
+  var iv = setInterval(function(){
+    pct += Math.random() * 16 + 5;
+    if(pct > 100) pct = 100;
+    if(bar) bar.style.width = pct + '%';
+    var m = Math.min(Math.floor((pct / 100) * msgs.length), msgs.length - 1);
+    if(m !== msgIdx){ msgIdx = m; if(status) status.textContent = msgs[msgIdx]; }
+    if(pct >= 100){
+      clearInterval(iv);
+      if(status) status.textContent = 'System ready';
+      setTimeout(function(){
+        if(loader){
+          loader.style.transition = 'opacity 0.8s ease';
+          loader.style.opacity = '0';
+          setTimeout(function(){
+            loader.style.display = 'none';
+          }, 850);
+        }
+      }, 500);
+    }
+  }, 100);
+})();
+
+// ── CLOCK ──
+function tick(){const n=new Date();const t=[n.getHours(),n.getMinutes(),n.getSeconds()].map(x=>String(x).padStart(2,'0')).join(':');const e=document.getElementById('clock');if(e)e.textContent=t;}
+setInterval(tick,1000);tick();
+
+// ── MATRIX ──
+(function(){
+  const c=document.getElementById('matrix');
+  const x=c.getContext('2d');
+  function rs(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  rs();window.addEventListener('resize',rs);
+  const chars='01アイウエオカキクサシスセタチツテナニヌ'.split('');
+  const cols=Math.floor(window.innerWidth/18);
+  const drops=Array(cols).fill(1);
+  setInterval(()=>{
+    x.fillStyle='rgba(3,3,3,0.05)';x.fillRect(0,0,c.width,c.height);
+    x.fillStyle='#cc0000';x.font='13px Share Tech Mono';
+    drops.forEach((y,i)=>{
+      x.fillText(chars[Math.floor(Math.random()*chars.length)],i*18,y*18);
+      if(y*18>c.height&&Math.random()>0.975)drops[i]=0;
+      drops[i]++;
+    });
+  },55);
+})();
+
+// ── SCROLL REVEAL ──
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ── CHART OPTIONS ──
+const cOpts={
+  responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(5,5,5,.96)',titleColor:'#cc0000',bodyColor:'#888',borderColor:'rgba(204,0,0,.2)',borderWidth:1,titleFont:{family:'Share Tech Mono'},bodyFont:{family:'Share Tech Mono'}}},
+  scales:{x:{ticks:{color:'#2a2a2a',font:{family:'Share Tech Mono',size:8}},grid:{color:'rgba(255,255,255,0.02)'}},y:{ticks:{color:'#2a2a2a',font:{family:'Share Tech Mono',size:8}},grid:{color:'rgba(255,255,255,0.02)'}}}
+};
+
+// ── FETCH ──
+async function fetchChannel(){
+  if(!ok()){fallback();return;}
+  try{
+    const r=await fetch(`${YT}/channels?part=statistics,contentDetails,snippet,brandingSettings&id=${CHANNEL_ID}&key=${API_KEY}`);
+    const d=await r.json();
+    const item=d?.items?.[0];
+    const s=item?.statistics;
+    const uid=item?.contentDetails?.relatedPlaylists?.uploads;
+    if(!s){fallback();return;}
+
+    // ── BANNER ──
+    const bannerUrl=item?.brandingSettings?.image?.bannerExternalUrl;
+    const heroBanner=document.getElementById('hero-banner');
+    if(heroBanner&&bannerUrl) heroBanner.src=bannerUrl+'=w1920';
+
+    // ── PROFILE PICTURE ──
+    const pfpUrl=item?.snippet?.thumbnails?.high?.url||item?.snippet?.thumbnails?.medium?.url||item?.snippet?.thumbnails?.default?.url;
+    const pfpImg=document.getElementById('pfp-img');
+    if(pfpImg&&pfpUrl) pfpImg.src=pfpUrl;
+
+    const subs=parseInt(s.subscriberCount||0);
+    const views=parseInt(s.viewCount||0);
+    const vids=parseInt(s.videoCount||0);
+    const fk=n=>n>=1000?(n/1000).toFixed(1)+'K':n;
+    ['hero-subs','stats-subs'].forEach(i=>set(i,subs.toLocaleString()));
+    ['hero-views','stats-views'].forEach(i=>set(i,fk(views)));
+    ['hero-videos','stats-videos'].forEach(i=>set(i,vids));
+    renderMilestones(subs);
+    await fetchVids(uid);
+  }catch{fallback();}
+}
+
+async function fetchVids(uid){
+  try{
+    const r=await fetch(`${YT}/playlistItems?part=snippet,contentDetails&playlistId=${uid}&maxResults=50&key=${API_KEY}`);
+    const d=await r.json();
+    const ids=(d?.items||[]).map(i=>i.contentDetails.videoId).join(',');
+    if(!ids)return;
+    const sr=await fetch(`${YT}/videos?part=statistics,snippet,contentDetails&id=${ids}&key=${API_KEY}`);
+    const sd=await sr.json();
+    allVideos=(sd?.items||[]).map(v=>{
+      const secs=parseDur(v.contentDetails?.duration||'');
+      return {id:v.id,title:v.snippet.title,thumb:v.snippet.thumbnails?.maxres?.url||v.snippet.thumbnails?.high?.url||v.snippet.thumbnails?.medium?.url,views:parseInt(v.statistics.viewCount||0),date:v.snippet.publishedAt,url:`https://www.youtube.com/watch?v=${v.id}`,isShort:secs<=60||secs===0};
+    });
+    const best=Math.max(...allVideos.map(v=>v.views));
+    const fk=n=>n>=1000?(n/1000).toFixed(1)+'K':n;
+    set('hero-best',fk(best));
+    updateTerminal();buildCharts();renderShorts('viral');renderVidsGrid('recent');
+  }catch{fallback();}
+}
+
+function parseDur(d){const m=d.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);if(!m)return 0;return(parseInt(m[1]||0)*3600)+(parseInt(m[2]||0)*60)+parseInt(m[3]||0);}
+
+// ── MILESTONES ──
+function renderMilestones(currentSubs){
+  const fmtN=n=>n>=1000?(n/1000)+'K':n;
+
+  // Big sub number
+  const bigEl=document.getElementById('ms-big-subs');
+  if(bigEl) bigEl.textContent=currentSubs.toLocaleString();
+
+  // Find last completed & next target
+  const completed=MILESTONES.filter(m=>currentSubs>=m.subs);
+  const upcoming=MILESTONES.filter(m=>currentSubs<m.subs);
+  const lastDone=completed[completed.length-1]||null;
+  const nextUp=upcoming[0]||null;
+
+  // Progress bar toward next milestone
+  if(nextUp){
+    const prev=lastDone?lastDone.subs:0;
+    const pct=Math.min(100,Math.round(((currentSubs-prev)/(nextUp.subs-prev))*100));
+    const barEl=document.getElementById('ms-sub-bar');
+    if(barEl) setTimeout(()=>barEl.style.width=pct+'%',200);
+    const nextEl=document.getElementById('ms-sub-next');
+    if(nextEl) nextEl.textContent=`// ${nextUp.subs-currentSubs} subs to ${fmtN(nextUp.subs)} — ${nextUp.label}`;
+  } else {
+    const barEl=document.getElementById('ms-sub-bar');
+    if(barEl) barEl.style.width='100%';
+    const nextEl=document.getElementById('ms-sub-next');
+    if(nextEl) nextEl.textContent='// All milestones reached 👑';
+  }
+
+  // Spotlight — last done
+  if(lastDone){
+    document.getElementById('ms-done-icon').textContent=lastDone.icon;
+    document.getElementById('ms-done-title').textContent=lastDone.label;
+    document.getElementById('ms-done-desc').textContent=lastDone.desc;
+    document.getElementById('ms-done-target').textContent=fmtN(lastDone.subs);
+  }
+
+  // Spotlight — next target
+  if(nextUp){
+    const prev2=lastDone?lastDone.subs:0;
+    const pct2=Math.min(99,Math.round(((currentSubs-prev2)/(nextUp.subs-prev2))*100));
+    document.getElementById('ms-next-icon').textContent=nextUp.icon;
+    document.getElementById('ms-next-title').textContent=nextUp.label;
+    document.getElementById('ms-next-desc').textContent=nextUp.desc;
+    document.getElementById('ms-next-target').textContent=fmtN(nextUp.subs);
+    const nb=document.getElementById('ms-next-bar');
+    if(nb) setTimeout(()=>nb.style.width=pct2+'%',200);
+  } else {
+    document.getElementById('ms-next-icon').textContent='🎖️';
+    document.getElementById('ms-next-title').textContent='Purge Complete';
+    document.getElementById('ms-next-desc').textContent='All milestones cleared';
+    document.getElementById('ms-next-target').textContent='MAX';
+    const nb=document.getElementById('ms-next-bar');
+    if(nb) nb.style.width='100%';
+  }
+
+  // Left scrollable list
+  const scroll=document.getElementById('ms-list-scroll');
+  if(!scroll) return;
+  scroll.innerHTML=MILESTONES.map(m=>{
+    const done=currentSubs>=m.subs;
+    const isNext=!done&&m===nextUp;
+    const cls=done?'done':isNext?'next-up':'';
+    const tick=done?'✅':isNext?'⏳':'🔒';
+    return `<div class="ms-row ${cls}">
+      <span class="ms-row-icon">${m.icon}</span>
+      <span class="ms-row-num">${fmtN(m.subs)}</span>
+      <span class="ms-row-label">${m.label}</span>
+      <span class="ms-row-tick">${tick}</span>
+    </div>`;
+  }).join('');
+}
+
+// ── CHARTS ──
+function buildCharts(){
+  const sorted=[...allVideos].sort((a,b)=>b.views-a.views);
+  const top=sorted.slice(0,7);
+  const labels=top.map(v=>v.title.length>16?v.title.slice(0,16)+'…':v.title);
+  if(charts.v)charts.v.destroy();
+  charts.v=new Chart(document.getElementById('viewsChart'),{type:'bar',data:{labels,datasets:[{data:top.map(v=>v.views),backgroundColor:'rgba(204,0,0,.4)',borderColor:'#cc0000',borderWidth:1,borderRadius:4,hoverBackgroundColor:'rgba(204,0,0,.72)'}]},options:{...cOpts,plugins:{...cOpts.plugins,tooltip:{...cOpts.plugins.tooltip,callbacks:{label:c=>` ${c.raw.toLocaleString()} views`}}}}});
+  const viral=sorted[0];
+  if(viral){
+    const days=14;
+    const vd=Array.from({length:days},(_,i)=>Math.round(viral.views*(1-Math.exp(-5*(i/days)))*(0.88+Math.random()*.24)));
+    vd[days-1]=viral.views;
+    if(charts.viral)charts.viral.destroy();
+    charts.viral=new Chart(document.getElementById('viralChart'),{type:'line',data:{labels:Array.from({length:days},(_,i)=>`D${i+1}`),datasets:[{label:viral.title.slice(0,22)+'…',data:vd,borderColor:'#cc0000',backgroundColor:'rgba(204,0,0,.05)',fill:true,tension:.4,pointBackgroundColor:'#cc0000',pointRadius:2,pointHoverRadius:5}]},options:{...cOpts,plugins:{...cOpts.plugins,legend:{display:true,labels:{color:'#444',font:{family:'Share Tech Mono',size:8}}}}}});
+  }
+}
+
+// ── TERMINAL ──
+function updateTerminal(){
+  if(!allVideos.length)return;
+  const best=[...allVideos].sort((a,b)=>b.views-a.views)[0];
+  const fk=n=>n>=1000?(n/1000).toFixed(1)+'K':n;
+  const now=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  set('t-subs',`✓ Subscribers  →  ${document.getElementById('stats-subs').textContent}`);
+  set('t-views',`✓ Total views  →  ${document.getElementById('stats-views').textContent}`);
+  set('t-videos',`✓ Videos       →  ${allVideos.length}`);
+  set('t-best',`✓ Best short   →  "${best.title.slice(0,26)}" · ${fk(best.views)} views`);
+  set('t-time',`// Refreshes every 90s — Last updated: ${now}`);
+}
+
+// ── RENDER SHORTS ──
+function renderShorts(tab){
+  const grid=document.getElementById('shorts-grid');
+  const shorts=allVideos.filter(v=>v.isShort);
+  if(!shorts.length){document.getElementById('shorts-error').style.display='block';grid.innerHTML='';return;}
+  const fk=n=>n>=1000?(n/1000).toFixed(1)+'K':n;
+  const vids=tab==='viral'?[...shorts].sort((a,b)=>b.views-a.views).slice(0,8):[...shorts].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,8);
+  grid.innerHTML=vids.map(v=>`<div class="short-card" onclick="window.open('${v.url}','_blank')"><div class="short-thumb"><img src="${v.thumb}" loading="lazy"><div class="short-play"><svg width="11" height="11" viewBox="0 0 16 16" fill="white"><path d="M4 2l10 6-10 6V2z"/></svg></div></div><div class="short-info"><div class="short-title">${v.title}</div><div class="short-views">${fk(v.views)} views</div></div></div>`).join('');
+}
+
+// ── RENDER VIDEOS ──
+function renderVidsGrid(tab){
+  const grid=document.getElementById('vids-grid');
+  const fk=n=>n>=1000?(n/1000).toFixed(1)+'K':n;
+  const longs=allVideos.filter(v=>!v.isShort);
+  const src=longs.length?longs:allVideos;
+  if(!src.length){document.getElementById('vids-error').style.display='block';grid.innerHTML='<p style="color:var(--dim);font-size:.68rem;">// No long videos yet — keep uploading!</p>';return;}
+  const vids=tab==='recent'?[...src].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,6):[...src].sort((a,b)=>b.views-a.views).slice(0,6);
+  grid.innerHTML=vids.map(v=>{const dt=new Date(v.date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});return `<div class="vid-card" onclick="window.open('${v.url}','_blank')"><div class="vid-thumb"><img src="${v.thumb}" loading="lazy"><div class="vid-play"><svg width="11" height="11" viewBox="0 0 16 16" fill="white"><path d="M4 2l10 6-10 6V2z"/></svg></div></div><div class="vid-info"><div class="vid-title">${v.title}</div><div class="vid-meta"><span class="vid-views">${fk(v.views)} views</span><span>${dt}</span></div></div></div>`;}).join('');
+}
+
+// ── TAB SWITCHES ──
+function switchShorts(btn,tab){document.querySelectorAll('#shorts .tab-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');set('shorts-ind',tab);document.getElementById('shorts-grid').innerHTML='<div class="skel" style="aspect-ratio:9/16"></div>'.repeat(4);setTimeout(()=>renderShorts(tab),300);}
+function switchVids(btn,tab){document.querySelectorAll('#videos .tab-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');set('vids-ind',tab);document.getElementById('vids-grid').innerHTML='<div class="skel" style="height:175px"></div>'.repeat(3);setTimeout(()=>renderVidsGrid(tab),300);}
+
+// ── FALLBACK ──
+function fallback(){
+  ['hero-subs','stats-subs'].forEach(i=>set(i,'16'));
+  ['hero-views','stats-views'].forEach(i=>set(i,'6K+'));
+  ['hero-videos','stats-videos'].forEach(i=>set(i,'5'));
+  set('hero-best','1.3K');
+  set('t-subs','✓ Subscribers  →  16');
+  set('t-views','✓ Total views  →  6K+');
+  set('t-videos','✓ Videos       →  5');
+  set('t-best','✓ Best short   →  "Why did he switch to his axe lol" · 1.3K views');
+  set('t-time','// Add API key to enable live data');
+  renderMilestones(16);
+  document.getElementById('shorts-error').style.display='block';
+  document.getElementById('vids-error').style.display='block';
+  document.getElementById('shorts-grid').innerHTML='';
+  document.getElementById('vids-grid').innerHTML='';
+}
+
+function set(id,val){const el=document.getElementById(id);if(el)el.textContent=val;}
+fetchChannel();
+setInterval(fetchChannel,90000);
+</script>
+</body>
+</html>
